@@ -15,10 +15,12 @@ function handle_save_client_id_secret()
   //Extract Data
   $clientID = $data['clientid'];
   $clientSR = $data['clientsecret'];
+  $clientRD = $data['clientredirect'];
 
   //Update Options
   update_option('zoho_wp_client_id', $clientID, 'yes');
   update_option('zoho_wp_client_secret', $clientSR, 'yes');
+  update_option('zoho_wp_client_redirect', $clientRD, 'yes');
 
   $sucess = [
     'data' => $data,

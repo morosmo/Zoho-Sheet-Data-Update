@@ -1,9 +1,9 @@
 jQuery(document).ready(function ($) {
-  if (typeof zoho_wp_ajax_request === "function") {
-    console.info("Ajax Function Accessible! => zoho_wp_ajax_request");
-  } else {
-    console.error("Function not accessible! => zoho_wp_ajax_request");
-  }
+  // if (typeof zoho_wp_ajax_request === "function") {
+  //   console.info("Ajax Function Accessible! => zoho_wp_ajax_request");
+  // } else {
+  //   console.error("Function not accessible! => zoho_wp_ajax_request");
+  // }
 
   //Save Client ID & Client Secret on Database
   const mainForm = $("#mainForm");
@@ -18,9 +18,11 @@ jQuery(document).ready(function ($) {
     //Generate Data to send on server
     let clientID = formElements["clientid"].value;
     let clientSR = formElements["clientsecret"].value;
+    let clientRD = formElements["redirectUrl"].value;
     let formData = {
       clientid: clientID,
       clientsecret: clientSR,
+      clientredirect: clientRD,
     };
 
     //Call Ajax Request
@@ -49,11 +51,9 @@ jQuery(document).ready(function ($) {
   //Save Client ID & Client Secret on Database
   const generateAuthUrl = $("#generateauthorizeUrl");
   generateAuthUrl.click(function (e) {
-    let button = e.target;
     let formData = {
       currentTime: new Date(),
     };
-    console.log(button);
 
     //Call Ajax Request
     zoho_wp_ajax_request(
@@ -63,7 +63,7 @@ jQuery(document).ready(function ($) {
         console.log(response);
         if (response.success) {
           alert("Generated");
-          location.reload();
+          // location.reload();
         }
       },
       function (error) {

@@ -71,6 +71,23 @@
     white-space: nowrap;
     overflow: hidden;
   }
+  p.auth-link {
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    white-space: nowrap;
+    background-color: #abf8a6;
+    padding: 3px 5px;
+    border-radius: 5px;
+    a {
+      color: var(--black);
+    }
+  }
+  p.auth-link:hover {
+    cursor: pointer;
+    background-color: #70fd66;
+  }
   table {
     overflow: hidden;
     width: 100%;

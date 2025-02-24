@@ -47,6 +47,9 @@ function zoho_wp_dashboard()
   $zoho_client_code = get_option('zoho_wp_client_code');
   $zoho_client_code = !empty($zoho_client_code) ? $zoho_client_code : '<p class="disabled-option">Authorize to get code...</p>';
   $zoho_client_secret = get_option('zoho_wp_client_secret');
+  $zoho_client_redirect = get_option('zoho_wp_client_redirect');
+  $authurl = get_option('zoho_wp_auth_url');
+  $authurl = !empty($authurl) ? $authurl : '<p class="disabled-option">Authorize to get code...</p>';
 ?>
   <div class="wrap zoho-wp-wrap">
     <div class="zoho-wp-main-contianer">
@@ -71,6 +74,10 @@ function zoho_wp_dashboard()
                 <label for="clientsecret">Client Secret</label>
                 <input type="text" name="clientsecret" id="clientsecret" placeholder="Client Secret" value="<?php echo $zoho_client_secret ?>">
               </div>
+              <div class="zohowp-field-container">
+                <label for="clientsecret">Redirect Url</label>
+                <input type="text" name="redirectUrl" id="redirectUrl" placeholder="Redirect Url" value="<?php echo $zoho_client_redirect ?>">
+              </div>
               <div class="submit-container">
                 <button class="zwp-button" type="submit" form="mainForm">Save Zoho Settings</button>
                 <div class="message-wrapper">
@@ -83,7 +90,13 @@ function zoho_wp_dashboard()
           <div class="zoho-wp-grid-column grid-right">
             <div style="display:flex;gap:5px;align-items:center;">
               <h2>Authorization Data</h2>
-              <p><?php echo $zoho_client_code; ?></p>
+              <p class="auth-link">
+                <?php
+                if ($authurl) {
+                  echo '<a href="' . $authurl . '" target="_blank" id="generatecode">Authorize</a>';
+                }
+                ?>
+              </p>
             </div>
             <table>
               <thead>
@@ -107,7 +120,7 @@ function zoho_wp_dashboard()
                 </tr>
                 <tr>
                   <td>redirect_uri</td>
-                  <td><?php echo get_site_url(); ?></td>
+                  <td><?php echo !empty($zoho_client_redirect) ? $zoho_client_redirect : '<p class="disabled-option">Please add Redirect Url</p>'; ?></td>
                 </tr>
                 <tr>
                   <td>access_type</td>
